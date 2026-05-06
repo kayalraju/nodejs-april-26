@@ -5,7 +5,19 @@
 class HomeController{
 
     index(req,res){
-        res.send("<h1>This is a Home page</h1>")
+        const user={
+            name:'webskitters',
+            age:20
+        }
+        res.render('index',{
+            title:'home page',
+            data:user
+        })
+    }
+    about(req,res){
+        res.render('about',{
+            title:'about page'
+        })
     }
     
 }
