@@ -1,10 +1,13 @@
+require('dotenv').config()
 const express=require('express');
 const ejs=require('ejs');
+const ConnectDB=require('./app/config/db')
 
 
-
-
+ConnectDB();
 const app=express();
+
+
 
 //setup ejs
 app.set('view engine','ejs');
@@ -21,8 +24,8 @@ app.use(homeRoute)
 
 
 
+const PORT=process.env.PORT
 
-const PORT=3006
 
 app.listen(PORT,(error)=>{
     if(error){
