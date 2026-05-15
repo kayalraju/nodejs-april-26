@@ -16,11 +16,18 @@ app.set('views','views')
 //static folder
 app.use(express.static('public'))
 
+//middleware
+app.use(express.json());
+//app.use(express.urlencoded({extended:false}))
+
 //define routes
 
 const homeRoute=require('./app/routes/homeRoutes')
-
 app.use(homeRoute)
+const productRoute=require('./app/routes/api/productRoute')
+app.use('/api',productRoute)
+
+
 
 
 
