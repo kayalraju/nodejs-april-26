@@ -18,7 +18,7 @@ app.use(express.static('public'))
 
 //middleware
 app.use(express.json());
-//app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({extended:false}))
 
 //define routes
 
