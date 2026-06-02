@@ -18,6 +18,10 @@ const ProductSchema=new Schema({
     desc:{
         type: String,
         required: true
+    },
+    is_deleted: {
+        type: Boolean,
+        default: false
     }
 
 })

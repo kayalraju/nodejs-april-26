@@ -38,8 +38,8 @@
       <td><%= product.productName %></td>
       <td><%= product.productPrice %></td>
       <td><%= product.desc %></td>
-      <td><a href="" class="btn btn-primary">Update</a></td>
-      <td><a href="" class="btn btn-danger">Delete</a></td>
+      <td><a href="/edit/<%= product._id %>" class="btn btn-primary">Update</a></td>
+      <td><a href="/delete/<%= product._id %>" class="btn btn-danger">Delete</a></td>
       
     </tr>
 

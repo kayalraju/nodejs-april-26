@@ -43,6 +43,39 @@ class ProductController {
         }
        
     }
+    async editView(req,res){
+        try{
+            const id=req.params.id
+            const product=await Product.findById(id)
+            return res.render('product/edit',{
+                data:product
+            })
+        }catch(error){
+             console.log(error)
+        }
+       
+    }
+    async update(req,res){
+        try{
+            const id=req.params.id
+            const product=await Product.findByIdAndUpdate(id,req.body,{new:true})
+            return res.redirect('/list')
+        }catch(error){
+             console.log(error)
+        }
+       
+    }
+
+    async delete(req,res){
+        try{
+            const id=req.params.id
+            const product=await Product.findByIdAndDelete(id)
+            return res.redirect('/list')
+        }catch(error){
+             console.log(error)
+        }
+       
+    }
 }
 
 
