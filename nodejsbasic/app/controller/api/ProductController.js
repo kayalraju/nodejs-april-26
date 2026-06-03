@@ -3,6 +3,7 @@ const StatusCode = require("../../utils/statusCode");
 
 class ProductController {
   async createProduct(req, res) {
+    //console.log(req.file)
     try {
       const { productName, productPrice, desc } = req.body;
 
@@ -11,6 +12,10 @@ class ProductController {
         productPrice,
         desc,
       });
+
+      if(req.file){
+        product.image=req.file.path
+      }
       const data = await product.save();
       return res.status(StatusCode.CREATED).json({
         status: true,
