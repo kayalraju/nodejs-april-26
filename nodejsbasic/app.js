@@ -3,12 +3,14 @@ const express=require('express');
 const ejs=require('ejs');
 const ConnectDB=require('./app/config/db')
 const path=require('path')
+const cors=require('cors')
 
 
 ConnectDB();
 const app=express();
 
-
+//cors
+app.use(cors())
 
 //setup ejs
 app.set('view engine','ejs');
@@ -30,6 +32,9 @@ app.use(homeRoute)
 const productRoute=require('./app/routes/api/productRoute')
 app.use('/api',productRoute)
 
+const employeeRoute=require('./app/routes/api/employeeRoute')
+app.use('/api',employeeRoute)
+
 
 
 
@@ -44,3 +49,4 @@ app.listen(PORT,(error)=>{
         console.log("server is running on port ",`http://localhost:${PORT}`);
     }
 })
+
