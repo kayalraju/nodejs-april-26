@@ -35,7 +35,8 @@ app.use('/api',productRoute)
 const employeeRoute=require('./app/routes/api/employeeRoute')
 app.use('/api',employeeRoute)
 
-
+const authRoute=require('./app/routes/api/authRoute')
+app.use('/api',authRoute)
 
 
 
