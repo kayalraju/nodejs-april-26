@@ -93,6 +93,58 @@ class AuthController {
       token: token,
     });
   }
+
+
+  async dashboard(req, res) {
+
+      return res.status(200).json({
+        status: true,
+        message: "Dashboard",
+        user: req.user,
+      });
+
+  }
+
+  async updateProfile(req, res) {
+    try {
+      const { name, email, phone } = req.body;
+      if (!name || !email || !phone) {
+        return res.status(400).json({
+          status: false,
+          message: "All fields are required",
+        });
+      }
+
+      const userExist = await User.findById(req.user.id);
+      if (!userExist) {
+        return res.status(400).json({
+          status: false,
+          message: "User does not exist",
+        });
+      }
+
+      userExist.name = name;
+      userExist.email = email;
+      userExist.phone = phone;
+      userExist.password = userExist.password;
+      //hash password
+      const salt = await brctpyjs.genSalt(10);
+      const hashPassword = await brctpyjs.hash(userExist.password, salt);
+      userExist.password = hashPassword;  
+      const data = await userExist.save();
+      return res.status(200).json({
+        status: true,
+        message: "Profile updated successfully",
+        data: data,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: false,
+        message: "something went wrong",
+        error: error,
+      });
+    }
+  }
 }
 
 module.exports = new AuthController();
