@@ -4,6 +4,8 @@ const ejs=require('ejs');
 const ConnectDB=require('./app/config/db')
 const path=require('path')
 const cors=require('cors')
+const Session=require('express-session')
+const cookieParser=require('cookie-parser')
 
 
 ConnectDB();
@@ -12,6 +14,16 @@ const app=express();
 //cors
 app.use(cors())
 
+app.use(Session({
+    secret:process.env.SESSION_SECRECT || "secrect",
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+        maxAge:1000*60*60*24 //1 day
+    }
+}))
+
+app.use(cookieParser())
 //setup ejs
 app.set('view engine','ejs');
 app.set('views','views')
@@ -38,7 +50,8 @@ app.use('/api',employeeRoute)
 const authRoute=require('./app/routes/api/authRoute')
 app.use('/api',authRoute)
 
-
+const AuthEjsRoute=require('./app/routes/authEjsRouter')
+app.use(AuthEjsRoute)
 
 const PORT=process.env.PORT
 
