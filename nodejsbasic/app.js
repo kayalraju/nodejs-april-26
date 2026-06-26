@@ -6,6 +6,10 @@ const path=require('path')
 const cors=require('cors')
 const Session=require('express-session')
 const cookieParser=require('cookie-parser')
+const connectflash=require('connect-flash')
+const helmat=require('helmet')
+const Limit=require('./app/utils/limite')
+const morgan=require('morgan')
 
 
 ConnectDB();
@@ -14,6 +18,14 @@ const app=express();
 //cors
 app.use(cors())
 
+//helmat
+app.use(helmat())
+
+//ratelimit\
+
+app.use(Limit)
+
+app.use(morgan('dev'))
 app.use(Session({
     secret:process.env.SESSION_SECRECT || "secrect",
     resave:false,
@@ -24,6 +36,9 @@ app.use(Session({
 }))
 
 app.use(cookieParser())
+
+//for flash message
+app.use(connectflash())
 //setup ejs
 app.set('view engine','ejs');
 app.set('views','views')
