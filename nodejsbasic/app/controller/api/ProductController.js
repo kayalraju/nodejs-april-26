@@ -5,11 +5,13 @@ class ProductController {
   async createProduct(req, res) {
     //console.log(req.file)
     try {
-      const { productName, productPrice, desc } = req.body;
+      const { productName, productPrice,category,size, desc } = req.body;
 
       const product = new Product({
         productName,
         productPrice,
+        category,
+        size,
         desc,
       });
 
@@ -33,7 +35,81 @@ class ProductController {
 
   async getProduct(req, res) {
     try {
-      const products = await Product.find();
+      //const products = await Product.find();
+
+      const products = await Product.aggregate([
+        //match
+        // {
+        //   $match: {
+        //     category:"mens",
+        //   },
+        // },
+
+        //project
+        {
+          $project: {
+          __v:1,
+          productName:1
+          },
+        },
+        //limit
+        // {
+        //   $limit: 10,
+        // },
+        //sort
+        // {
+        //   $sort: {
+        //     productPrice: -1,
+        //   },
+        // },
+
+        //addfiled
+
+        // {
+        //   $addFields: {
+        //     total: {
+        //       $sum: ["$productPrice", "$productPrice"],
+        //     },
+        //     company:"myntra"
+        //   },
+        // }
+
+        //unwind
+        // {
+        //   $unwind: "$category",
+        // },
+
+        //skip
+        // {
+        //   $skip: 6,
+        // },
+
+        //group
+        // {
+        //   $group: {
+        //     _id: "$category",
+        //     total: {
+        //       $sum: "$productPrice",
+        //     },
+        //   },
+        // },
+       //category wise product show
+      //  {
+      //    $group: {
+      //      _id: "$category",
+      //      products: {
+      //        $push: "$$ROOT",
+      //      }
+      //    },
+      //  }
+
+      // {
+      //   $sample: {
+      //     size: 5,
+      //   },
+      // }
+      
+      ])
       return res.status(200).json({
         status: true,
         total: products.length,
@@ -44,7 +120,7 @@ class ProductController {
       return res.status(500).json({
         status: false,
         message: "something went wrong",
-        error: err,
+        error: error,
       });
     }
   }
