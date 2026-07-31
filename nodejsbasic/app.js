@@ -54,6 +54,9 @@ app.use(express.urlencoded({extended:false}))
 
 //define routes
 
+const lookupRoute=require('./app/routes/lookupRoute')
+app.use(lookupRoute)
+
 const homeRoute=require('./app/routes/homeRoutes')
 app.use(homeRoute)
 const productRoute=require('./app/routes/api/productRoute')
