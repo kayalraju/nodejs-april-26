@@ -6,6 +6,7 @@ class ProductController{
     async getProduct(req,res){
         try{
             const product=await Product.findAll()
+         
             return res.status(200).json({
                 data:product
             })

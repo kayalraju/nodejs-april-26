@@ -22,6 +22,20 @@ class EmployeeController {
       console.log(error);
     }
   }
+
+
+  async getEmployees(req, res) {
+    try {
+      const employees = await Employee.find();
+      return res.status(200).json({
+        status: true,
+        message: "Employees retrieved successfully",
+        data: employees,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = new EmployeeController();

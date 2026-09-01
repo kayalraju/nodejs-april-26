@@ -10,6 +10,11 @@ const connectflash=require('connect-flash')
 const helmat=require('helmet')
 const Limit=require('./app/utils/limite')
 const morgan=require('morgan')
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const SwaggerOptions = require('./swagger.json');
+const swaggerDocument = swaggerJsDoc(SwaggerOptions);
+
 
 
 ConnectDB();
@@ -52,6 +57,7 @@ app.use('/uploads',express.static('uploads'))
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //define routes
 
 const lookupRoute=require('./app/routes/lookupRoute')
